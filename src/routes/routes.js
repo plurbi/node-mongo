@@ -1,19 +1,39 @@
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
 
 const Task = require('../models/task');
 
 router.get('/', async (req,res) => {
-    const pendingTasks = await Task.find({ status : false });
-    const doneTasks = await Task.find({ status : true });
-
+    const pendingTasks = await Task.find({ status : false },  null, {
+        skip:0, // Starting Row
+        limit:10, // Ending Row
+        sort:{
+            creationTime: 1 //Sort by Date Added DESC
+        }
+    }, (err, oks) => {
+        console.log('pending tasks -> err', err);
+        });
+    const doneTasks = await Task.find({ status : true }, null, {
+        skip:0, // Starting Row
+        limit:10, // Ending Row
+        sort:{
+            creationTime: -1 //Sort by Date Added DESC
+        }
+    }, (err, oks) => {
+        console.log('done taks -> err', err);
+    });
     res.render('index', { 
         pendingTasks, doneTasks
     });
 });
 
 router.post('/add', async (req,res) => {
-    const task = new Task(req.body);
+    const task = new Task({
+        title: req.body.title,
+        description: req.body.description,
+        creationTime: new Date()
+    });
     await task.save()
     res.redirect('/');
 });
@@ -45,4 +65,6 @@ router.post('/edit/:id', async (req,res) => {
     await Task.update({ _id: id }, req.body);
     res.redirect('/');
 });
+
+
 module.exports = router;

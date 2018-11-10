@@ -11,7 +11,7 @@
                     </div>
                     <div class="form-group">
                         <textarea type="text" name="description" placeholder="descripcion" class="form-control"></textarea>
-                    </div>
+                    </div>           
                     <button type="submit" class="btn btn-primary btn-block">
                         Listo!
                     </button>
@@ -24,6 +24,7 @@
             <div class="card-body">
                 <h5 class="card-title"><%= doneTasks[i].title %></h5>
                 <p class="card-text"><%= doneTasks[i].description %></p>
+                <p class="card-text"><%= doneTasks[i].creationTime %></p>
                 <a href="/turn/<%= doneTasks[i]._id %>" class="btn btn-warning">Pasar a pendiente</a>
                 <a href="/edit/<%= doneTasks[i]._id %>" class="btn btn-info">Editar</a>
                 <a href="/delete/<%= doneTasks[i]._id %>" class="btn btn-danger pull-right">Borrar</a>                        
@@ -38,6 +39,7 @@
                     <div class="card-body">
                         <h5 class="card-title"><%= pendingTasks[i].title %></h5>
                         <p class="card-text"><%= pendingTasks[i].description %></p>
+                        <p class="card-text"><%= pendingTasks[i].creationTime %></p>
                         <a href="/turn/<%= pendingTasks[i]._id %>" class="btn btn-success">Finalizar</a>
                         <a href="/edit/<%= pendingTasks[i]._id %>" class="btn btn-info">Editar</a>
                         <a href="/delete/<%= pendingTasks[i]._id %>" class="btn btn-danger pull-right">Borrar</a>                        
