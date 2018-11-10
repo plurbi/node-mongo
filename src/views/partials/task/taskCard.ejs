@@ -1,0 +1,16 @@
+<div class="card border-<%= cardColorClass %> mb-3">
+        <div class="card-header bg-<%= cardColorClass %>"><%= cardTitle %></div>
+        <div class="card-body">
+            <label>Titulo</label>
+            <h5 class="card-title"><%= task.title %></h5>
+            <label>Descripcion</label>
+            <p class="card-text"><%= task.description %></p>
+            <label>Fecha creacion</label>
+            <p class="card-text"><%= task.creationTime %></p>
+            <label>Fecha programada</label>
+            <p class="card-text"><%= task.scheduleTime %></p>
+            <a href="/turn/<%= task._id %>" class="btn btn-<%= turnColor %>"><%= turnAction %></a>
+            <a href="/edit/<%= task._id %>" class="btn btn-info">Editar</a>
+            <a href="/delete/<%= task._id %>" class="btn btn-danger pull-right">Borrar</a>                        
+        </div>
+</div>   

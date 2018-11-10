@@ -4,34 +4,22 @@
 <div class="row">
     <div class="col-md-6">
         <% for( var i = 0; i < doneTasks.length; i++) { %>
-        <div class="card bg-success mb-3">
-            <div class="card-header">Realizada <%= i + 1 %></div>
-            <div class="card-body">
-                <h5 class="card-title"><%= doneTasks[i].title %></h5>
-                <p class="card-text"><%= doneTasks[i].description %></p>
-                <p class="card-text"><%= doneTasks[i].creationTime %></p>
-                <p class="card-text"><%= doneTasks[i].scheduleTime %></p>
-                <a href="/turn/<%= doneTasks[i]._id %>" class="btn btn-warning">Pasar a pendiente</a>
-                <a href="/edit/<%= doneTasks[i]._id %>" class="btn btn-info">Editar</a>
-                <a href="/delete/<%= doneTasks[i]._id %>" class="btn btn-danger pull-right">Borrar</a>                        
-            </div>
-        </div>                
+            <%- include("partials/task/taskCard",{
+                task: doneTasks[i], 
+                cardTitle: 'Finalizada', 
+                turnAction: 'Pasar a pendiente',
+                turnColor: 'warning' ,
+                cardColorClass: 'success' }) %>             
         <% } %>
     </div>
     <div class="col-md-6">
         <% for( var i = 0; i < pendingTasks.length; i++) { %>
-                <div class=" card border-info mb-3">
-                    <div class="card-header">Pendientes <%= i + 1 %></div>
-                    <div class="card-body">
-                        <h5 class="card-title"><%= pendingTasks[i].title %></h5>
-                        <p class="card-text"><%= pendingTasks[i].description %></p>
-                        <p class="card-text"><%= pendingTasks[i].creationTime %></p>
-                        <p class="card-text"><%= pendingTasks[i].scheduleTime %></p>
-                        <a href="/turn/<%= pendingTasks[i]._id %>" class="btn btn-success">Finalizar</a>
-                        <a href="/edit/<%= pendingTasks[i]._id %>" class="btn btn-info">Editar</a>
-                        <a href="/delete/<%= pendingTasks[i]._id %>" class="btn btn-danger pull-right">Borrar</a>                        
-                    </div>
-                </div>                
+            <%- include("partials/task/taskCard",{
+                task: pendingTasks[i], 
+                cardTitle: 'Pendiente', 
+                turnAction: 'Finalizar',
+                turnColor: 'success' ,
+                cardColorClass: 'primary' }) %>               
         <% } %>
     </div>
 </div>
