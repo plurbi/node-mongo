@@ -4,7 +4,7 @@ const moment = require('moment');
 
 const Task = require('../models/task');
 
-router.get('/', async (req,res) => {
+router.get('/', async (req, res) => {
     const pendingTasks = await Task.find({ status : false },  null, {
         skip:0, // Starting Row
         limit:10, // Ending Row
@@ -27,7 +27,9 @@ router.get('/', async (req,res) => {
         pendingTasks, doneTasks
     });
 });
-
+router.get('/add', (req, res) => {
+    res.render('create');
+});
 router.post('/add', async (req,res) => {
     const task = new Task({
         title: req.body.title,

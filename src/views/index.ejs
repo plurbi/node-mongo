@@ -1,23 +1,8 @@
 <% include partials/_header %>
 
+<a class="btn btn-info btn-lg btn-block   mb-3" href="/add">Agregar</a>
 <div class="row">
     <div class="col-md-5">
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5 class="card-title">Nuava tarea</h5>
-                <form action="/add" method="POST">
-                    <div class="form-group">
-                        <input type="text" name="title" placeholder="titulo" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <textarea type="text" name="description" placeholder="descripcion" class="form-control"></textarea>
-                    </div>           
-                    <button type="submit" class="btn btn-primary btn-block">
-                        Listo!
-                    </button>
-                </form>
-            </div>
-        </div>
         <% for( var i = 0; i < doneTasks.length; i++) { %>
         <div class="card bg-success mb-3">
             <div class="card-header">Realizada <%= i + 1 %></div>

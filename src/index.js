@@ -16,7 +16,7 @@ mongoose.connect('mongodb://plurbi:plurbi1@ds157493.mlab.com:57493/mdb-node', { 
 app.set('port', process.env.PORT || 1107);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
+app.use(express.static(path.join(__dirname, 'public')));
 
 //middelweres
 app.use(morgan('dev'));
