@@ -2,8 +2,9 @@
 
 <div class="row">
     <div class="col-md-5">
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-body">
+                <h5 class="card-title">Nuava tarea</h5>
                 <form action="/add" method="POST">
                     <div class="form-group">
                         <input type="text" name="title" placeholder="titulo" class="form-control">
@@ -12,39 +13,37 @@
                         <textarea type="text" name="description" placeholder="descripcion" class="form-control"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">
-                        POST!
+                        Listo!
                     </button>
                 </form>
             </div>
         </div>
+        <% for( var i = 0; i < doneTasks.length; i++) { %>
+        <div class="card bg-success mb-3">
+            <div class="card-header">Realizada <%= i + 1 %></div>
+            <div class="card-body">
+                <h5 class="card-title"><%= doneTasks[i].title %></h5>
+                <p class="card-text"><%= doneTasks[i].description %></p>
+                <a href="/turn/<%= doneTasks[i]._id %>" class="btn btn-warning">Pasar a pendiente</a>
+                <a href="/edit/<%= doneTasks[i]._id %>" class="btn btn-info">Editar</a>
+                <a href="/delete/<%= doneTasks[i]._id %>" class="btn btn-danger pull-right">Borrar</a>                        
+            </div>
+        </div>                
+        <% } %>
     </div>
     <div class="col-md-7">
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>Nro</th>
-                    <th>Titulo</th>
-                    <th>Descripcion</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for( var i = 0; i < tasks.length; i++) { %>
-                    <tr>
-                        <td> <%= i + 1 %></td>
-                        <td> <%= tasks[i].title %></td>
-                        <td> <%= tasks[i].description %></td>
-                        <td>
-                            <a href="/turn/<%= tasks[i]._id %>" class="btn <%= tasks[i].status ? 'btn-success' :'btn-dark' %>">
-                                Done!
-                            </a>
-                            <a href="/delete/<%= tasks[i]._id %>" class="btn btn-danger">Delete</a>
-                            <a href="/edit/<%= tasks[i]._id %>" class="btn btn-info">Edit</a>
-                        </td>
-                    </tr>
-                    <% } %>
-            </tbody>
-        </table>
+        <% for( var i = 0; i < pendingTasks.length; i++) { %>
+                <div class=" card border-info mb-3">
+                    <div class="card-header">Pendientes <%= i + 1 %></div>
+                    <div class="card-body">
+                        <h5 class="card-title"><%= pendingTasks[i].title %></h5>
+                        <p class="card-text"><%= pendingTasks[i].description %></p>
+                        <a href="/turn/<%= pendingTasks[i]._id %>" class="btn btn-success">Finalizar</a>
+                        <a href="/edit/<%= pendingTasks[i]._id %>" class="btn btn-info">Editar</a>
+                        <a href="/delete/<%= pendingTasks[i]._id %>" class="btn btn-danger pull-right">Borrar</a>                        
+                    </div>
+                </div>                
+        <% } %>
     </div>
 </div>
  

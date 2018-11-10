@@ -4,9 +4,11 @@ const router = express.Router();
 const Task = require('../models/task');
 
 router.get('/', async (req,res) => {
-    const tasks = await Task.find();
+    const pendingTasks = await Task.find({ status : false });
+    const doneTasks = await Task.find({ status : true });
+
     res.render('index', { 
-        tasks 
+        pendingTasks, doneTasks
     });
 });
 
