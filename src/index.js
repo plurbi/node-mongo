@@ -13,7 +13,7 @@ mongoose.connect('mongodb://plurbi:plurbi1@ds157493.mlab.com:57493/mdb-node', { 
 
 
 //settings
-app.set('port', process.env.port || 3000);
+app.set('port', process.env.PORT || 1107);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -27,5 +27,5 @@ app.use('/',require('./routes/routes.js'));
 
 //startin server
 app.listen(app.get('port'),() => {
-    console.log('server listen');
+    console.log('server listen', process.env.PORT);
 }) 
