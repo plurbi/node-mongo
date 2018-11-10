@@ -2,7 +2,7 @@
 
 <a class="btn btn-info btn-lg btn-block   mb-3" href="/add">Agregar</a>
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-6">
         <% for( var i = 0; i < doneTasks.length; i++) { %>
         <div class="card bg-success mb-3">
             <div class="card-header">Realizada <%= i + 1 %></div>
@@ -10,6 +10,7 @@
                 <h5 class="card-title"><%= doneTasks[i].title %></h5>
                 <p class="card-text"><%= doneTasks[i].description %></p>
                 <p class="card-text"><%= doneTasks[i].creationTime %></p>
+                <p class="card-text"><%= doneTasks[i].scheduleTime %></p>
                 <a href="/turn/<%= doneTasks[i]._id %>" class="btn btn-warning">Pasar a pendiente</a>
                 <a href="/edit/<%= doneTasks[i]._id %>" class="btn btn-info">Editar</a>
                 <a href="/delete/<%= doneTasks[i]._id %>" class="btn btn-danger pull-right">Borrar</a>                        
@@ -17,7 +18,7 @@
         </div>                
         <% } %>
     </div>
-    <div class="col-md-7">
+    <div class="col-md-6">
         <% for( var i = 0; i < pendingTasks.length; i++) { %>
                 <div class=" card border-info mb-3">
                     <div class="card-header">Pendientes <%= i + 1 %></div>
@@ -25,6 +26,7 @@
                         <h5 class="card-title"><%= pendingTasks[i].title %></h5>
                         <p class="card-text"><%= pendingTasks[i].description %></p>
                         <p class="card-text"><%= pendingTasks[i].creationTime %></p>
+                        <p class="card-text"><%= pendingTasks[i].scheduleTime %></p>
                         <a href="/turn/<%= pendingTasks[i]._id %>" class="btn btn-success">Finalizar</a>
                         <a href="/edit/<%= pendingTasks[i]._id %>" class="btn btn-info">Editar</a>
                         <a href="/delete/<%= pendingTasks[i]._id %>" class="btn btn-danger pull-right">Borrar</a>                        

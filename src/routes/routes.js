@@ -28,12 +28,21 @@ router.get('/', async (req, res) => {
     });
 });
 router.get('/add', (req, res) => {
-    res.render('create');
+    const task = new Task();
+    res.render('Task', {
+        task,
+        action: '/add',
+        method: 'POST',
+        submitText: 'Listo!',
+        btnClass: 'btn-info',
+        formTitle: 'Agregar Tarea!'
+    });
 });
 router.post('/add', async (req,res) => {
     const task = new Task({
         title: req.body.title,
         description: req.body.description,
+        scheduleTime: req.body.scheduleTime,
         creationTime: new Date()
     });
     await task.save()
@@ -57,8 +66,13 @@ router.get('/delete/:id', async (req,res) => {
 router.get('/edit/:id', async (req,res) => {
     const { id } = req.params;
     const task = await Task.findById({ _id: id});
-    res.render('edit', {
-        task
+    res.render('Task', {
+        task,
+        action: '/edit/' + id,
+        method: 'POST',
+        submitText: 'Editalo!',
+        btnClass: 'btn-warning',
+        formTitle: 'Editar Tarea!'
     });
 });
 
