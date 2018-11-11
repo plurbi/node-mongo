@@ -3,12 +3,12 @@ const path = require('path');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 
+const dbConfig = require('./db.js');
 const app = express();
 //connect Db
-var connectionString = 'mongodb://plurbi:plurbi1@ds045087.mlab.com:45087/nodoose-tasklist';
-var connectionStringPROD = 'mongodb://plurbi:plurbi1@ds157493.mlab.com:57493/mdb-node';
 
-mongoose.connect(connectionString, { useNewUrlParser: true })
+
+mongoose.connect(dbConfig.connStrTaskList , { useNewUrlParser: true })
 .then(db => console.log('Base conectada'))
 .catch(err => console.log('erro al conectar db', err)
 );
@@ -29,5 +29,5 @@ app.use('/',require('./routes/HomeRoutes.js'));
 
 //startin server
 app.listen(app.get('port'),() => {
-    console.log('server listen, port -> ', app.get('port'));
+    console.log('server MASTER listen, port -> ', app.get('port'));
 }) 
