@@ -3,7 +3,4 @@ const DbConfig = {
     connStrTaskList: 'mongodb://plurbi:plurbi1@ds045087.mlab.com:45087/nodoose-tasklist'
 };
 
-
-
-
 module.exports = DbConfig;
