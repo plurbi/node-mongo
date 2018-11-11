@@ -24,16 +24,17 @@ router.get('/', async (req, res) => {
         console.log('done taks -> err', err);
     });
     res.render('index', { 
-        pendingTasks, doneTasks
+        pendingTasks, doneTasks, moment
     });
 });
 router.get('/add', (req, res) => {
     const task = new Task();
     res.render('Task', {
+        moment,
         task,
         action: '/add',
         method: 'POST',
-        submitText: 'Listo!',
+        submitText: 'Ok!',
         btnClass: 'btn-info',
         formTitle: 'Agregar Tarea!'
     });
@@ -43,7 +44,7 @@ router.post('/add', async (req,res) => {
         title: req.body.title,
         description: req.body.description,
         scheduleTime: req.body.scheduleTime,
-        creationTime: new Date(),
+        creationTime: moment(new Date()).format('l'),
         storage: false
     });
     await task.save()
@@ -76,6 +77,7 @@ router.get('/edit/:id', async (req,res) => {
     const { id } = req.params;
     const task = await Task.findById({ _id: id});
     res.render('Task', {
+        moment,
         task,
         action: '/edit/' + id,
         method: 'POST',

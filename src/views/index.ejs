@@ -1,13 +1,13 @@
 <% include partials/_header %>
 
-<a class="btn btn-info btn-lg btn-block   mb-3" href="/add">Agregar</a>
+<a class="btn btn-info btn-lg btn-block mb-3 marker" href="/add">Agregar</a>
 <div class="row">
     <div class="col-md-6">
         <% for( var i = 0; i < doneTasks.length; i++) { %>
             <%- include("partials/task/taskCard",{
                 task: doneTasks[i], 
                 cardTitle: 'Finalizada', 
-                turnAction: 'Volver a pendiente',
+                turnAction: 'A pendiente',
                 turnColor: 'warning' ,
                 cardColorClass: 'success',
                 turnIcon: 'fas fa-backspace',
@@ -29,5 +29,18 @@
         <% } %>
     </div>
 </div>
- 
+
 <% include partials/_footer %>
+
+<!-- <script>
+    $(document).ready( function  (){
+        //task dates
+        var fechaTest = $("#idCreationDate");
+        console.log('existente', fechaTest.val());
+        var momentDate = moment(fechaTest).format('l');
+        fechaTest.innerHTML = momentDate;
+        console.log(momentDate);
+        console.log('test');
+    });
+      
+   </script> -->

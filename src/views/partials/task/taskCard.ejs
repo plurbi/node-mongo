@@ -1,14 +1,25 @@
+<!-- 
+    PARAMETROS
+
+task: pendingTasks[i], 
+cardTitle: 'Pendiente', 
+turnAction: 'Finalizar',
+turnColor: 'success' ,
+cardColorClass: 'primary',
+turnIcon: 'fas fa-check',
+showStorage: false -->
+
 <div class="card border-<%= cardColorClass %> mb-3">
-        <div class="card-header bg-<%= cardColorClass %>"><%= cardTitle %></div>
+        <div class="card-header bg-<%= cardColorClass %> marker"><%= cardTitle %></div>
         <div class="card-body">
             <label>Titulo</label>
             <h5 class="card-title"><%= task.title %></h5>
             <label>Descripcion</label>
             <p class="card-text"><%= task.description %></p>
             <label>Fecha creacion</label>
-            <p class="card-text"><%= task.creationTime %></p>
+            <p class="card-text"><%= moment(task.creationTime).format('DD-MM-YYYY') %></p>
             <label>Fecha programada</label>
-            <p class="card-text"><%= task.scheduleTime %></p>
+            <p class="card-text"><%= moment(task.scheduleTime).format('DD-MM-YYYY') %></p>
             <a href="/turn/<%= task._id %>" class="btn btn-<%= turnColor %>"><i class="<%= turnIcon %>"></i> <%= turnAction %></a>
             <a href="/edit/<%= task._id %>" class="btn btn-info"><i class="fas fa-pen-square"></i></a>
             
