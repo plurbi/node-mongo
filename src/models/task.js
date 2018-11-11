@@ -9,6 +9,10 @@ const taskSchema = new Schema({
     status: {
         type: Boolean,
         default: false
+    },
+    storage: {
+        type: Boolean,
+        dafault: false
     }
 });
 

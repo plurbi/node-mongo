@@ -9,8 +9,26 @@
             <p class="card-text"><%= task.creationTime %></p>
             <label>Fecha programada</label>
             <p class="card-text"><%= task.scheduleTime %></p>
-            <a href="/turn/<%= task._id %>" class="btn btn-<%= turnColor %>"><%= turnAction %></a>
-            <a href="/edit/<%= task._id %>" class="btn btn-info">Editar</a>
-            <a href="/delete/<%= task._id %>" class="btn btn-danger pull-right">Borrar</a>                        
+            <a href="/turn/<%= task._id %>" class="btn btn-<%= turnColor %>"><i class="<%= turnIcon %>"></i> <%= turnAction %></a>
+            <a href="/edit/<%= task._id %>" class="btn btn-info"><i class="fas fa-pen-square"></i></a>
+            
+            <% if(showStorage) { %>
+                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                        <a href="/delete/<%= task._id %>" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                        <div class="btn-group" role="group">
+                          <button id="btnGroupDrop4" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                          <div class="dropdown-menu" aria-labelledby="btnGroupDrop4">
+                            <a class="dropdown-item"  href="/delete/<%= task._id %>">Borrar</a>
+                            <a class="dropdown-item" href="/storage/<%= task._id %>">Archivar</a>
+                          </div>
+                        </div>
+                      </div>
+            <% } else { %>   
+                <a href="/delete/<%= task._id %>" class="btn btn-danger pull-right"><i class="fas fa-trash-alt"></i></a>   
+            <% } %>     
+            
         </div>
+        <!-- <% if(showStorage) { %>
+            <a href="/delete/<%= task._id %>" class="btn btn-outline-danger"><i class="fas fa-database"></i></a>
+        <% } %>    -->
 </div>   

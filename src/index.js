@@ -27,5 +27,5 @@ app.use('/',require('./routes/routes.js'));
 
 //startin server
 app.listen(app.get('port'),() => {
-    console.log('server listen', process.env.PORT);
+    console.log('server listen, port -> ', app.get('port'));
 }) 

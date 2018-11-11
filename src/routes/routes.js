@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
     }, (err, oks) => {
         console.log('pending tasks -> err', err);
         });
-    const doneTasks = await Task.find({ status : true }, null, {
+    const doneTasks = await Task.find({ status : true, storage: false }, null, {
         skip:0, // Starting Row
         limit:10, // Ending Row
         sort:{
@@ -43,7 +43,8 @@ router.post('/add', async (req,res) => {
         title: req.body.title,
         description: req.body.description,
         scheduleTime: req.body.scheduleTime,
-        creationTime: new Date()
+        creationTime: new Date(),
+        storage: false
     });
     await task.save()
     res.redirect('/');
@@ -53,6 +54,14 @@ router.get('/turn/:id', async (req,res) => {
     const { id } = req.params;
     const task = await Task.findById(id);
     task.status = !task.status;
+    await task.save();
+    res.redirect('/');
+});
+
+router.get('/storage/:id', async (req,res) => {
+    const { id } = req.params;
+    const task = await Task.findById(id);
+    task.storage = true;
     await task.save();
     res.redirect('/');
 });

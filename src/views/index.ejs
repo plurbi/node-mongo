@@ -7,9 +7,12 @@
             <%- include("partials/task/taskCard",{
                 task: doneTasks[i], 
                 cardTitle: 'Finalizada', 
-                turnAction: 'Pasar a pendiente',
+                turnAction: 'Volver a pendiente',
                 turnColor: 'warning' ,
-                cardColorClass: 'success' }) %>             
+                cardColorClass: 'success',
+                turnIcon: 'fas fa-backspace',
+                showStorage: true
+            }) %>             
         <% } %>
     </div>
     <div class="col-md-6">
@@ -19,7 +22,10 @@
                 cardTitle: 'Pendiente', 
                 turnAction: 'Finalizar',
                 turnColor: 'success' ,
-                cardColorClass: 'primary' }) %>               
+                cardColorClass: 'primary',
+                turnIcon: 'fas fa-check',
+                showStorage: false
+            }) %>               
         <% } %>
     </div>
 </div>
