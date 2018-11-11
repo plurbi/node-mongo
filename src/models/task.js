@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const taskSchema = new Schema({
     creationTime: Date,
     scheduleTime: Date,
+    updateTime: Date,
     title: String,
     description: String,
     status: {
