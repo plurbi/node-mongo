@@ -29,5 +29,5 @@ app.use('/',require('./routes/HomeRoutes.js'));
 
 //startin server
 app.listen(app.get('port'),() => {
-    console.log('server listen, port -> ', app.get('port'));
+    console.log('server listen MASTER-REACT , port -> ', app.get('port'));
 }) 
