@@ -1,7 +1,7 @@
 const express = require('express');
 const TaskRouter = express.Router();
 
-const TaskController = require('../controllers/taskController');
+const TaskController = require('../controllersApi/taskControllerApi');
 
 TaskRouter.get('/Tasks/', TaskController.Index );
 TaskRouter.get('/Tasks/add', TaskController.AddGet );

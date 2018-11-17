@@ -4,28 +4,29 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 
 const app = express();
-//connect Db
-var connectionString = 'mongodb://plurbi:plurbi1@ds045087.mlab.com:45087/nodoose-tasklist';
-var connectionStringPROD = 'mongodb://plurbi:plurbi1@ds157493.mlab.com:57493/mdb-node';
 
-mongoose.connect(connectionString, { useNewUrlParser: true })
+const con = require('./db.Config.js');
+//connect Db
+
+mongoose.connect(con.connStrMdbNode, { useNewUrlParser: true })
 .then(db => console.log('Base conectada'))
 .catch(err => console.log('erro al conectar db', err)
 );
 
 //settings
 app.set('port', process.env.PORT || 1107);
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-app.use(express.static(path.join(__dirname, 'public')));
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
+ app.use(express.static(path.join(__dirname, 'public')));
+
 
 //middelweres
 app.use(morgan('dev'));
-app.use(express.urlencoded({ extended : false }));
-
+app.use(express.json())
+// app.use(express.urlencoded({ extended : false }));
 //routes
-app.use('/',require('./routes/TaskRoutes.js'));
-app.use('/',require('./routes/HomeRoutes.js'));
+app.use('/api/tasks',require('./routes/Task.routes.js'));
+app.use('/',require('./routes/Home.routes.js'));
 
 //startin server
 app.listen(app.get('port'),() => {
