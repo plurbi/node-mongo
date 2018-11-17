@@ -3,11 +3,11 @@ const path = require('path');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 
-const dbConfig = require('./db.js');
+const dbConfig = require('./db.config.js');
 const app = express();
+
 //connect Db
-
-
+//replace "dbConfig.connStrTaskList" for personal DB
 mongoose.connect(dbConfig.connStrTaskList , { useNewUrlParser: true })
 .then(db => console.log('Base conectada'))
 .catch(err => console.log('erro al conectar db', err)
