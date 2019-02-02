@@ -16,7 +16,7 @@ TaskController.Index = async (req, res) => {
     }, (err, oks) => {
     });
 
-    const progressTasks = await Task.find({ 'status.description': states[1].description }, null, {
+    const progressTasks = await Task.find({ 'status.description': states[1].description, storage: false }, null, {
         skip: 0, // Starting Row
         limit: 10, // Ending Row
         sort: {
@@ -123,10 +123,13 @@ TaskController.TurnUp = async (req, res) => {
 TaskController.TurnDown = async (req, res) => {
     const { id } = req.params;
     const task = await Task.findById(id);
+    console.log('states', states,'task', task);
     //turn from pending to progress
     var i = 0;
     while (i < states.length) {
-        if (task.status.description == states[i].description && i < (states.length - 1)) {            
+        console.log(task.status.description == states[i].description, task.status.description , states[i].description);
+        if (task.status.description == states[i].description) {     
+            console.log('if', states[i], i);       
             task.status.description = states[i - 1].description;
             i = states.length;            
         }

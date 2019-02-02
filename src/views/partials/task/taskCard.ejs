@@ -17,25 +17,28 @@ showStorage: false -->
             <h4><b class="col-sm-10 col-form-label col-md-offset-5"><%= task.title %></b> </h4>
            </div>              
             <p class="card-text"><%= moment(task.scheduleTime).format('DD-MM-YYYY') %></p>
-            <a href="/Tasks/turnUp/<%= task._id %>" class="btn btn-<%= turnColor %>"><i class="<%= turnIcon %>"></i> <%= turnAction %></a>            
-            <a href="/Tasks/edit/<%= task._id %>" class="btn btn-info"><i class="fas fa-pen-square"></i></a>
-            
-            <% if(showStorage) { %>
+            <% if(backVisible) { %>
+                <a href="/Tasks/turnDown/<%= task._id %>" class="pull-right btn btn-<%= backColor %>"><i class="<%= turnIcon %>"></i> <%= backAction %></a>               
+            <% } %>            
+            <a href="/Tasks/edit/<%= task._id %>" class="btn btn-primary"><i class="fas fa-pen-square"></i></a>
+                        
                 <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                        <a href="/Tasks/delete/<%= task._id %>" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                        
                         <div class="btn-group" role="group">
-                          <button id="btnGroupDrop4" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                          <div class="dropdown-menu" aria-labelledby="btnGroupDrop4">
-                            <a class="dropdown-item"  href="/Tasks/delete/<%= task._id %>">Borrar</a>
-                            <a class="dropdown-item" href="/Tasks/storage/<%= task._id %>">Archivar</a>
+                            <a href="/Tasks/storage/<%= task._id %>" class="btn btn-danger" di data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-trash-alt"></i></a>
+                            
+                          <div class="dropdown-menu" aria-labelledby="btnGroupDrop4">                           
+                            <a class="dropdown-item" href="/Tasks/storage/<%= task._id %>">Seguro ?</a>                           
                           </div>
                         </div>
-                      </div>
-            <% } else { %>   
-                <a href="/Tasks/delete/<%= task._id %>" class="btn btn-danger pull-right"><i class="fas fa-trash-alt"></i></a>   
-            <% } %>     
-            
+                      </div>                           
         </div>
+        <% if(turnVisible) { %>
+        <a href="/Tasks/turnUp/<%= task._id %>" class="btn btn-<%= turnColor %>"><i class="<%= turnIcon %>"></i> <%= turnAction %></a>
+        <% } %>   
+        
+      
+              
         <!-- <% if(showStorage) { %>
             <a href="/delete/<%= task._id %>" class="btn btn-outline-danger"><i class="fas fa-database"></i></a>
         <% } %>    -->

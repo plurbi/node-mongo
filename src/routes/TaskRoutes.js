@@ -7,6 +7,7 @@ TaskRouter.get('/Tasks/', TaskController.Index );
 TaskRouter.get('/Tasks/add', TaskController.AddGet );
 TaskRouter.post('/Tasks/add', TaskController.AddPost );
 TaskRouter.get('/Tasks/turnUp/:id', TaskController.TurnUp );
+TaskRouter.get('/Tasks/turnDown/:id', TaskController.TurnDown );
 TaskRouter.get('/Tasks/storage/:id', TaskController.Storage );
 TaskRouter.get('/Tasks/delete/:id', TaskController.DeleteGet );
 TaskRouter.get('/Tasks/edit/:id', TaskController.EditGet );

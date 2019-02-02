@@ -1,6 +1,13 @@
 <% include ../partials/_header %>
+<br>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 ">
+        <a class="btn btn-info btn-lg btn-block mb-3 marker" href="/Tasks/add">Agregar</a>
+    </div>
 
-<a class="btn btn-info btn-lg btn-block mb-3 marker" href="/Tasks/add">Agregar</a>
+    <div class="col-md-3"></div>
+</div>
 <div class="row">
     <div class="col-md-4">
         <% for( var i = 0; i < doneTasks.length; i++) { %>
@@ -11,7 +18,11 @@
                 turnColor: 'warning' ,
                 cardColorClass: 'success',
                 turnIcon: 'fas fa-backspace',
-                showStorage: true
+                showStorage: true,       
+                turnVisible: false,
+                backVisible: true,
+                backAction: 'Progreso',
+                backColor: 'warning',
             }) %>             
         <% } %>
     </div>
@@ -20,8 +31,12 @@
             <%- include("../partials/task/taskCard",{
                 task: progressTasks[i], 
                 cardTitle: 'Progreso', 
-                turnAction: 'Finalizada',
+                turnVisible: true,
+                turnAction: 'Finalizar',
                 turnColor: 'success' ,
+                backVisible: true,
+                backAction: 'Pendiente',
+                backColor: 'primary',
                 cardColorClass: 'warning',
                 turnIcon: 'fas fa-check',
                 showStorage: false
@@ -34,10 +49,14 @@
                 task: pendingTasks[i], 
                 cardTitle: 'Pendiente', 
                 turnAction: 'Comenzar',
-                turnColor: 'info' ,
+                turnColor: 'primary' ,
                 cardColorClass: 'primary',
                 turnIcon: 'fas fa-check',
-                showStorage: false
+                showStorage: false,
+                turnVisible: true,
+                backVisible: false,
+                backAction: 'Pendiente',
+                backColor: 'primary',
             }) %>               
         <% } %>
     </div>
