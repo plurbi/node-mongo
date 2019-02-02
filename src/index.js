@@ -8,7 +8,7 @@ const app = express();
 
 //connect Db
 //replace "dbConfig.connStrTaskList" for personal DB
-mongoose.connect(dbConfig.localMode , { useNewUrlParser: true })
+mongoose.connect(dbConfig.connStrTaskList , { useNewUrlParser: true })
 .then(db => console.log('Base conectada'))
 .catch(err => console.log('erro al conectar db', err)
 );
