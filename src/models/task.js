@@ -14,7 +14,8 @@ const taskSchema = new Schema({
     storage: {
         type: Boolean,
         dafault: false
-    }
+    },
+    lifeCycles: []
 });
 
 module.exports = mongoose.model('tasks', taskSchema);

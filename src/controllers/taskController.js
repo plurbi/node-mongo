@@ -1,5 +1,6 @@
 const moment = require('moment');
 const Task = require('../models/task');
+const TaskLifeCycle = require('../models/task.lifeCycle');
 const states = require('../models/enums/statesEnum.js');
 const TaskController = {};
 
@@ -57,8 +58,8 @@ TaskController.AddPost = async (req, res) => {
         title: req.body.title,
         description: req.body.description,
         scheduleTime: moment(req.body.scheduleTime).format('l'),
-        creationTime: moment(new Date()).format('l'),
-        updateTime: moment(new Date()).format('l'),
+        creationTime: moment(),
+        updateTime: moment(),
         storage: false,
         status: {
             description: states[0].description,
@@ -66,7 +67,8 @@ TaskController.AddPost = async (req, res) => {
         }
     });
 
-    await task.save()
+    task.lifeCycles.push(createLifeCicle(states[0].description));    
+    await task.save();
     res.redirect('/Tasks');
 };
 
@@ -113,6 +115,7 @@ TaskController.TurnUp = async (req, res) => {
     while (i < states.length) {
         if (task.status.description == states[i].description && i < (states.length - 1)) {            
             task.status.description = states[i + 1].description;
+            task.lifeCycles.push(  createLifeCicle( task.status.description, states[i].description ));
             i = states.length;            
         }
         i++;
@@ -127,10 +130,11 @@ TaskController.TurnDown = async (req, res) => {
     //turn from pending to progress
     var i = 0;
     while (i < states.length) {
-        console.log(task.status.description == states[i].description, task.status.description , states[i].description);
+        console.log(task.status.description == states[i].description, task.status.description , states[i].description );
         if (task.status.description == states[i].description) {     
             console.log('if', states[i], i);       
             task.status.description = states[i - 1].description;
+            task.lifeCycles.push(createLifeCicle( task.status.description, states[i].description ));
             i = states.length;            
         }
         i++;
@@ -145,5 +149,13 @@ TaskController.Storage = async (req, res) => {
     await task.save();
     res.redirect('/Tasks');
 };
+
+function createLifeCicle(stateTo, statefrom){
+    return new TaskLifeCycle({      
+        stateFrom: statefrom,
+        stateTo: stateTo,
+        date: moment()
+    });
+}
 
 module.exports = TaskController;
