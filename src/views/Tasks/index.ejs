@@ -2,12 +2,12 @@
 
 <a class="btn btn-info btn-lg btn-block mb-3 marker" href="/Tasks/add">Agregar</a>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <% for( var i = 0; i < doneTasks.length; i++) { %>
             <%- include("../partials/task/taskCard",{
                 task: doneTasks[i], 
                 cardTitle: 'Finalizada', 
-                turnAction: 'A pendiente',
+                turnAction: '',
                 turnColor: 'warning' ,
                 cardColorClass: 'success',
                 turnIcon: 'fas fa-backspace',
@@ -15,13 +15,26 @@
             }) %>             
         <% } %>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
+        <% for( var i = 0; i < progressTasks.length; i++) { %>
+            <%- include("../partials/task/taskCard",{
+                task: progressTasks[i], 
+                cardTitle: 'Progreso', 
+                turnAction: 'Finalizada',
+                turnColor: 'success' ,
+                cardColorClass: 'warning',
+                turnIcon: 'fas fa-check',
+                showStorage: false
+            }) %>               
+        <% } %>
+    </div>
+    <div class="col-md-4">
         <% for( var i = 0; i < pendingTasks.length; i++) { %>
             <%- include("../partials/task/taskCard",{
                 task: pendingTasks[i], 
                 cardTitle: 'Pendiente', 
-                turnAction: 'Finalizar',
-                turnColor: 'success' ,
+                turnAction: 'Comenzar',
+                turnColor: 'info' ,
                 cardColorClass: 'primary',
                 turnIcon: 'fas fa-check',
                 showStorage: false

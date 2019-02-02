@@ -1,34 +1,45 @@
 const moment = require('moment');
 const Task = require('../models/task');
-
+const states = require('../models/enums/statesEnum.js');
 const TaskController = {};
 
 
 TaskController.Index = async (req, res) => {
-    const pendingTasks = await Task.find({ status : false },  null, {
-        skip:0, // Starting Row
-        limit:10, // Ending Row
-        sort:{
+    //refactor {
+    const pendingTasks = await Task.find({ storage: false, 'status.description': states[0].description }, null, {
+        skip: 0, // Starting Row
+        limit: 10, // Ending Row
+        sort: {
             scheduleTime: 1 //Sort by Date Added DESC
         }
+
     }, (err, oks) => {
-        console.log('pending tasks -> err', oks);
-        });
-    const doneTasks = await Task.find({ status : true, storage: false }, null, {
-        skip:0, // Starting Row
-        limit:10, // Ending Row
-        sort:{
+    });
+
+    const progressTasks = await Task.find({ 'status.description': states[1].description }, null, {
+        skip: 0, // Starting Row
+        limit: 10, // Ending Row
+        sort: {
             creationTime: -1 //Sort by Date Added DESC
         }
     }, (err, oks) => {
-        console.log('done taks -> err', oks);
     });
-    res.render('Tasks/index', { 
-        pendingTasks, doneTasks, moment
+
+    const doneTasks = await Task.find({ storage: false, 'status.description': states[2].description }, null, {
+        skip: 0, // Starting Row
+        limit: 10, // Ending Row
+        sort: {
+            creationTime: -1 //Sort by Date Added DESC
+        }
+    }, (err, oks) => {
+    });
+    //}
+    res.render('Tasks/index', {
+        pendingTasks, progressTasks, doneTasks, moment
     });
 };
 
-TaskController.AddGet =  (req, res) => {
+TaskController.AddGet = (req, res) => {
     const task = new Task();
     res.render('Tasks/Task', {
         moment,
@@ -48,16 +59,20 @@ TaskController.AddPost = async (req, res) => {
         scheduleTime: moment(req.body.scheduleTime).format('l'),
         creationTime: moment(new Date()).format('l'),
         updateTime: moment(new Date()).format('l'),
-        storage: false
+        storage: false,
+        status: {
+            description: states[0].description,
+            order: 1
+        }
     });
 
     await task.save()
     res.redirect('/Tasks');
 };
 
-TaskController.EditGet = async (req,res) => {
+TaskController.EditGet = async (req, res) => {
     const { id } = req.params;
-    const task = await Task.findById({ _id: id});
+    const task = await Task.findById({ _id: id });
     res.render('Tasks/Task', {
         moment,
         task,
@@ -69,7 +84,7 @@ TaskController.EditGet = async (req,res) => {
     });
 };
 
-TaskController.EditPost = async (req,res) => {
+TaskController.EditPost = async (req, res) => {
     const { id } = req.params;
     const task = {
 
@@ -84,20 +99,42 @@ TaskController.EditPost = async (req,res) => {
     res.redirect('/Tasks');
 };
 
-TaskController.DeleteGet = async (req,res) => {
+TaskController.DeleteGet = async (req, res) => {
     const { id } = req.params;
-    await Task.remove({ _id: id});
+    await Task.remove({ _id: id });
     res.redirect('/Tasks');
 };
 
-TaskController.Turn = async (req, res) => {
+TaskController.TurnUp = async (req, res) => {
     const { id } = req.params;
     const task = await Task.findById(id);
-    task.status = !task.status;
+    //turn from pending to progress
+    var i = 0;
+    while (i < states.length) {
+        if (task.status.description == states[i].description && i < (states.length - 1)) {            
+            task.status.description = states[i + 1].description;
+            i = states.length;            
+        }
+        i++;
+    }
     await task.save();
     res.redirect('/Tasks');
 };
-
+TaskController.TurnDown = async (req, res) => {
+    const { id } = req.params;
+    const task = await Task.findById(id);
+    //turn from pending to progress
+    var i = 0;
+    while (i < states.length) {
+        if (task.status.description == states[i].description && i < (states.length - 1)) {            
+            task.status.description = states[i - 1].description;
+            i = states.length;            
+        }
+        i++;
+    }
+    await task.save();
+    res.redirect('/Tasks');
+};
 TaskController.Storage = async (req, res) => {
     const { id } = req.params;
     const task = await Task.findById(id);
@@ -105,6 +142,5 @@ TaskController.Storage = async (req, res) => {
     await task.save();
     res.redirect('/Tasks');
 };
-
 
 module.exports = TaskController;

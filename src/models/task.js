@@ -8,8 +8,8 @@ const taskSchema = new Schema({
     title: String,
     description: String,
     status: {
-        type: Boolean,
-        default: false
+        description: { type: String, lowercase: true, trim: true },
+        order: { type: Number }
     },
     storage: {
         type: Boolean,
